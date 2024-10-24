@@ -63,5 +63,4 @@ const KeyFeatures = () => {
     </div>
   );
 };
-
 export default KeyFeatures;
