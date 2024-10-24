@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/bishal-pokharel/travel_project/static/css/main.b6e49bb1.css",
+    "main.js": "/bishal-pokharel/travel_project/static/js/main.733c5e04.js",
+    "static/js/453.55eed3c4.chunk.js": "/bishal-pokharel/travel_project/static/js/453.55eed3c4.chunk.js",
+    "static/media/nav.jpg": "/bishal-pokharel/travel_project/static/media/nav.8d1a5bef19e73301a8f9.jpg",
+    "static/media/slick.svg": "/bishal-pokharel/travel_project/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/bishal-pokharel/travel_project/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/bishal-pokharel/travel_project/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/bishal-pokharel/travel_project/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/bishal-pokharel/travel_project/index.html",
+    "main.b6e49bb1.css.map": "/bishal-pokharel/travel_project/static/css/main.b6e49bb1.css.map",
+    "main.733c5e04.js.map": "/bishal-pokharel/travel_project/static/js/main.733c5e04.js.map",
+    "453.55eed3c4.chunk.js.map": "/bishal-pokharel/travel_project/static/js/453.55eed3c4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b6e49bb1.css",
+    "static/js/main.733c5e04.js"
+  ]
+}
