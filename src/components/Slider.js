@@ -26,12 +26,12 @@ const Carousel = () => {
   const slides = [
     {
       imgSrc: "assets/images/e.jpg",
-      title: "Want to Make Your Trip Best?",
+      title: `Want to Make Your <span class="highlight-text1">Trip Best?</span>`,
       description: "Choose us to make your travel adventure in Nepal",
     },
     {
       imgSrc: "assets/images/c.jpg",
-      title: "Exicting offer to visit Mustang",
+      title: `Exicting offer to visit <span class="highlight-text1">Mustang</span>`,
       description: "We always dedicated to our customer for best services.",
     },
   ];
@@ -41,10 +41,11 @@ const Carousel = () => {
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index} className="slide carousel-item">
-            <img className="d-block w-100" src={slide.imgSrc} alt={`Slide ${index + 1}`} />
+            <div className='front-layer'></div>
+            <img className="d-block w-100 slider-image" src={slide.imgSrc} alt={`Slide ${index + 1}`} />
             <div className={`carousel-caption fvgb d-none d-md-block ${activeIndex === index && shouldAnimate ? 'animated bounceInDown' : ''}`}>
-              <h5>{slide.title}</h5>
-              <p>{slide.description}</p>
+              <h5 dangerouslySetInnerHTML={{ __html: slide.title }}></h5>
+              <p className='slider_discription'>{slide.description}</p>
               <div className="row vbh">
                 <div className="btn btn-primary animated bounceInUp">Book Trip</div>
               </div>

@@ -37,7 +37,7 @@ const Testimonials = () => {
         <div className="row ro-clo">
           {Customerdata.map((data, index) => {
           return(
-            <div className="col-12 col-md-6 col-lg-4">
+            <div key={index} className="col-12 col-md-6 col-lg-4">
             <div className="shado-2 card-b">
               <p>
                 {data.message}

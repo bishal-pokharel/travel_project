@@ -8,6 +8,7 @@ import KeyFeatures from '../components/KeyFeatures';
 import Blog from '../components/Blog';
 
 const Home = () => {
+
   return (
     <div>
       <Header />
@@ -17,7 +18,7 @@ const Home = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-7 text">
-              <h2>About Our Traveler</h2>
+              <h1>About Our <span className='highlight-text'>Traveler</span></h1>
               <p>
             Our travel agency is dedicated to providing unforgettable experiences for adventure seekers, cultural enthusiasts, and relaxation lovers alike. We offer a range of personalized travel packages to the world's most stunning destinations, ensuring that each journey is tailored to your unique preferences. Whether you're dreaming of exploring ancient cities, trekking through majestic landscapes, or relaxing on pristine beaches, we have the perfect itinerary for you.
             </p>
@@ -28,7 +29,7 @@ const Home = () => {
             With our attention to detail and commitment to customer satisfaction, your comfort and safety are our top priorities. Let us take care of the logistics while you focus on creating memories that will last a lifetime.
             </p>
             </div>
-            <div className="col-md-5 image">
+            <div className="col-md-5 image aboutus-img">
               <img src="/assets/images/about.png" alt="About Us" />
             </div>
           </div>

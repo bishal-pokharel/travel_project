@@ -10,6 +10,24 @@ Description: This Template is created for Youtubers
 @import url(https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700);
 @import url(https://fonts.googleapis.com/css?family=Arimo:300,400,400italic,700,700italic);
 /* ===================================== Basic CSS ==================================== */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../public/assets//fonts/Montserrat-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../public/assets/fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+:root{
+  --primary-color: #8cc540;
+  --secondary-color: #009347;
+  --black: #000000;
+}
 * {
   margin: 0px;
   padding: 0px;
@@ -54,7 +72,9 @@ html, body {
 
 p {
   margin-bottom: 0px;
-  width: 100%; }
+  width: 100%;
+  font-size: 0.9em;
+ }
 
 .no-padding {
   padding: 0px; }
@@ -88,7 +108,7 @@ strong {
 
 body {
   background-color: #f1f1f145 !important;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -109,7 +129,7 @@ body {
     text-align: center;
     float: none;
     margin: auto;
-    font-size: .83rem;
+    font-size: 1.1rem;
     margin-top: 15px; }
   .session-title span {
     float: right;
@@ -187,8 +207,8 @@ body {
   background-color: #51be78;
   border-color: #51be78; }
   .btn-success:hover {
-    background-color: #51be78 !important;
-    border-color: #51be78 !important; }
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important; }
   .btn-success:active {
     background-color: #51be78 !important;
     border-color: #51be78 !important; }
@@ -201,8 +221,8 @@ body {
   background-color: #14863d;
   border-color: #14863d; }
   .btn-primary:hover {
-    background-color: #14863d !important;
-    border-color: #14863d !important; }
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important; }
   .btn-primary:active {
     background-color: #14863d !important;
     border-color: #14863d !important; }
@@ -320,8 +340,28 @@ header {
     position: absolute;
     right: 13px;
     top: 10px; }
+    .fixed{
+      z-index: 1000;
+      position: fixed;
+      top: 0px;
+      margin-left: 0px;
+      width: 100vw;
+      left: 0px;
+    }
+  
 
 /* =================== Slider Style Starts Here =================== */
+.slider-image{
+  filter: brightness(0.5);
+}
+.front-layer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
 @media screen and (max-width: 992px) {
   .slider-detail .carousel-control-prev {
     padding-top: 50px; }
@@ -363,7 +403,7 @@ header {
     margin-left: -40px;
     font-weight: 500;
     margin-top: 40px;
-    font-size: 16px;
+    font-size: 1.5em;
     color: #fff; }
 .slider-detail .vbh {
   margin-left: -40px; }
@@ -412,6 +452,157 @@ header {
         .destinations .dest-row .dest-col:hover .dest-img {
           border: none; }
 
+
+          .destination-details {
+            padding: 20px;
+          }
+          
+          .info-boxes {
+            gap: 15px;
+          }
+          
+          .info-box {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            /* flex: 1; */
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+          }
+          .info-box p{
+            margin-bottom: 0px;
+          }
+          .info-box i {
+            font-size: 24px;
+            color: #28a745;
+          }
+          
+          .tags {
+            display: flex;
+            gap: 10px;
+          }
+          
+          .tag {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-radius: 15px;
+            padding: 5px 10px;
+            font-size: 14px;
+          }
+          
+          .tabs {
+            margin-top: 20px;
+          }
+          
+          .tab-list {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            padding: 0;
+            border-bottom: 2px solid #ddd;
+          }
+          
+          .tab-item {
+            cursor: pointer;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px 5px 0 0;
+          }
+          
+          .tab-item.active {
+            background-color: var(--secondary-color);
+            color: #fff;
+            border: 1px solid var(--secondary-color);
+            border-bottom: none;
+          }
+          
+          .tab-content {
+            margin-top: 20px;
+          }
+          .tab-content p{
+            font-size: 1em;
+          }
+          .booking-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          }
+          
+          .booking-card .price {
+            color: var(--secondary-color);
+            font-weight: bold;
+          }
+          
+          .booking-options label {
+            display: block;
+            margin-bottom: 10px;
+          }
+          
+          .booking-options input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+          }
+          
+          .booking-card .btn {
+            width: 100%;
+            margin-top: 10px;
+          }
+
+/* ------------------Booking page css start here ----------- */
+.booking-page {
+  padding: 20px;
+}
+
+.booking-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.booking-form input[type="text"],
+.booking-form input[type="email"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.booking-form input[type="checkbox"],
+.booking-form input[type="radio"] {
+  margin-right: 10px;
+}
+
+.booking-form button {
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.booking-page .card {
+  margin-bottom: 20px;
+}
+.backbtn{
+  color: var(--secondary-color);
+}
+.booking-page .card img {
+  border: 1px solid #ddd;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+/*-------------------Booking page css ends here  ----------- */
+          
+
 /* =================== Key Features Starts Here =================== */
 .features {
   padding: 50px;
@@ -441,6 +632,12 @@ header {
       font-size: .96rem;
       color: #000;
       font-weight: 500; }
+      .features .feature-left, .features .feature-right{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+      }
   .features .feature-left .single-feature {
     text-align: right;
     display: flex; }
@@ -459,17 +656,32 @@ header {
 .about-us {
   padding: 50px;
   padding-top: 110px;
-  background-color: #FFF; }
+  background-color: #FFF; 
+}
+.highlight-text{
+  color: var(--secondary-color);
+}
+.highlight-text1{
+  color: var(--primary-color);
+}
+/* .aboutus-img{
+    background: url('./../public/assets/images/d.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    outline: aliceblue;
+  clip-path: polygon(15% 5%, 84% 0, 77% 35%, 100% 64%, 78% 100%, 26% 100%, 27% 72%, 0 45%);
+} */
   @media screen and (max-width: 940px) {
     .about-us {
       padding: 30px 10px; } }
   .about-us .text p {
     font-weight: 300;
-    font-size: .9rem;
+    font-size: 1.1rem;
     font-weight: 400;
     color: #000;
     margin-bottom: 10px;
-    line-height: 28px; }
+    line-height: 32px; }
   .about-us .image img {
     margin-top: 0px; }
 

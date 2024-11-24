@@ -10,7 +10,10 @@ import './App.css';
 import './assets/css/bootstrap.min.css';
 import './assets/css/animate.css';
 import Footer from './components/Footer';
-import $ from 'jquery';
+import BlogDetails from './pages/BlogDetails';
+import DestinationDetail from './pages/DestinationDetail';
+import Booking from './pages/Booking';
+import ScrollToTop from './components/ScrollToTop';
 
 // import './assets/css/fontawsom-all.min.css';
 // import './assets/css/all.min.css'; // Optional
@@ -26,14 +29,18 @@ import $ from 'jquery';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="App">
         <Routes>
           <Route path="/" exact element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/destinations" element={<Destination />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogDetails />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact-us" element={<ContactUs />} />
+          <Route path='/destinations/:id' element={<DestinationDetail />} />
+          <Route path='/booking' element={<Booking />} />
         </Routes>
         <Footer />
       </div>

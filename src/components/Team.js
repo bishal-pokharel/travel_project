@@ -46,14 +46,14 @@ const Team = () => {
     <div className="our-team">
       <div className="container">
         <div className="row session-title">
-          <h2>Meeto our team</h2>
+          <h2>Meet our team</h2>
           <p>Meet our team who are passonate and have experience in trekking who make always safe for your journey! </p>
         </div>
         <div className="row">
             {
             teamMember.map((item, index) => {
               return(
-                <div className="col-md-4 col-sm-6">
+                <div key={index} className="col-md-4 col-sm-6">
                 <div className="card-1 team-member">
                   <img src={item.image} alt="Team Member 1" />
                   <p><b>{item.name}</b> {item.degination}</p>

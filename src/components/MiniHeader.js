@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareFacebook, faTwitterSquare, faInstagramSquare, faLinkedin } from '@fortawesome/free-brands-svg-icons';
@@ -6,10 +6,31 @@ import { faBars, faAngleDoubleRight, faHome } from '@fortawesome/free-solid-svg-
 
 const MiniHeader = ({title}) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isFixed, setIsFixed] = useState(false);
+    const menuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const handleScroll = () => {
+    const menuPosition = menuRef.current ? menuRef.current.offsetTop : 0;
+    setIsFixed(window.scrollY > menuPosition);
+    // if (window.scrollY >= menuPosition) {
+    //   setIsFixed(true);
+    //   console.log(menuPosition)
+    // } else {
+    //   setIsFixed(false);
+    // }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -24,23 +45,26 @@ const MiniHeader = ({title}) => {
               </ul>
             </div>
             <div className="col-md-4 logo">
-              <img src="/assets/images/logo.png" alt="Logo" />
+              <img src="/assets/images/eco_heart.svg" alt="Logo" />
               <Link onClick={toggleMenu}>
                 <FontAwesomeIcon className='fas d-block d-sm-block d-md-none small-menu' icon={faBars} size='xl' />
               </Link>
             </div>
             <div className="col-md-4 d-none d-md-block social-link">
               <ul>
-                <li><FontAwesomeIcon icon={faSquareFacebook} style={{color : "black"}} size='xl' /></li>
-                <li><FontAwesomeIcon icon={faTwitterSquare} style={{color : "black"}} size='xl' /></li>
-                <li><FontAwesomeIcon icon={faInstagramSquare} style={{color : "black"}} size='xl' /></li>
-                <li><FontAwesomeIcon icon={faLinkedin} style={{color : "black"}} size='xl' /></li>
+                <li><FontAwesomeIcon icon={faSquareFacebook} style={{color : "#FFF"}} size='xl' /></li>
+                <li><FontAwesomeIcon icon={faTwitterSquare} style={{color : "#FFF"}} size='xl' /></li>
+                <li><FontAwesomeIcon icon={faInstagramSquare} style={{color : "#FFF"}} size='xl' /></li>
+                <li><FontAwesomeIcon icon={faLinkedin} style={{color : "#FFF"}} size='xl' /></li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      <div id="menu-jk" className={`header-nav ${isMenuOpen ? '' : 'd-none d-md-block'}`}>
+      <div id="menu-jk" 
+      className={`header-nav ${isMenuOpen ? '' : 'd-none d-md-block'} ${isFixed ? 'scroll-to-fixed-fixed fixed' : ''}`}
+      ref={menuRef}
+      >
         <div className="container">
           <div className="row nav-row">
             <ul>
@@ -56,22 +80,20 @@ const MiniHeader = ({title}) => {
       </div>
     </header>
 
-<div class="page-nav no-margin row">
-<div class="container">
-    <div class="row">
+<div className="page-nav no-margin row">
+<div className="container">
+    <div className="row">
         <h2>About Traveler</h2>
         <ul>
             <li> 
                 <FontAwesomeIcon icon={faHome} size='sm' />
                 <a href="#"> Home
-                {/* <i class="fas fa-home"></i>  */}
                 </a>
                 </li>
             <li>
             <FontAwesomeIcon icon={faAngleDoubleRight} size='sm' />
                 <span> {title} </span>
             </li>
-                {/* <i class="fas fa-angle-double-right"></i> */}
         </ul>
     </div>
 </div>

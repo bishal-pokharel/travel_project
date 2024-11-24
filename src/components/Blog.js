@@ -1,6 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Blog = () => {
+
+  const navigate = useNavigate();
+
+  const handleBlog = () => {
+    navigate('/blog/1');
+  }
   return (
     <div className="container-fluid blog">
       <div className="container">
@@ -10,7 +17,7 @@ const Blog = () => {
         </div>
         <div className="blog-row row">
           <div className="col-lg-4 col-md-6">
-            <div className="blog-col">
+            <div className="blog-col cursor-pointer" onClick={handleBlog}>
               <img src="assets/images/destination/d1.jpg" alt="" />
               <span>August 9, 2019</span>
               <h4>Orci varius consectetur adipiscing natoque penatibus</h4>

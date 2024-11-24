@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareFacebook, faTwitterSquare, faInstagramSquare, faLinkedin, faGooglePlusSquare } from '@fortawesome/free-brands-svg-icons';
+import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -11,36 +12,8 @@ const Footer = () => {
           <div className="col-md-3 about">
             <h2>About Us</h2>
             <p>
-              Phasellus scelerisque ornare nisl sit amet pulvinar. Nunc non scelerisque augue. Proin et sollicitudin velit.
+            Our travel agency is dedicated to providing unforgettable experiences for adventure seekers, cultural enthusiasts, and relaxation lovers alike. We offer a range of personalized travel packages to the world's most stunning destinations, ensuring that each journey is tailored to your unique preferences.
             </p>
-            <div className="foot-address">
-              <div className="icon">
-                <i className="fas fa-map-marker-alt"></i>
-              </div>
-              <div className="addet">
-                BlueDart<br />
-                Marthandam (K.K District)<br />
-                Tamil Nadu, IND
-              </div>
-            </div>
-            <div className="foot-address">
-              <div className="icon">
-                <i className="far fa-envelope-open"></i>
-              </div>
-              <div className="addet">
-                info@smarteyeapps.com <br />
-                sales@smarteyeapps.com
-              </div>
-            </div>
-            <div className="foot-address">
-              <div className="icon">
-                <i className="fas fa-mobile-alt"></i>
-              </div>
-              <div className="addet">
-                +23 323 43434 <br />
-                +1 3232 434 55
-              </div>
-            </div>
           </div>
 
           <div className="col-md-3 fotblog">
@@ -58,16 +31,16 @@ const Footer = () => {
           <div className="col-md-3 glink">
             <h2>Quick Links</h2>
             <ul>
-              <li><a href="index.html"><i className="fas fa-angle-double-right"></i>Home</a></li>
-              <li><a href="about_us.html"><i className="fas fa-angle-double-right"></i>About Us</a></li>
-              <li><a href="services.html"><i className="fas fa-angle-double-right"></i>Services</a></li>
-              <li><a href="blog.html"><i className="fas fa-angle-double-right"></i>Blog</a></li>
-              <li><a href="pricing.html"><i className="fas fa-angle-double-right"></i>Gallery</a></li>
-              <li><a href="contact_us.html"><i className="fas fa-angle-double-right"></i>Contact Us</a></li>
+              <li><Link to="/"><FontAwesomeIcon icon={faAngleDoubleRight} /> Home</Link></li>
+              <li><Link to="/about_us"><FontAwesomeIcon icon={faAngleDoubleRight} /> About Us</Link></li>
+              <li><Link to="/services"><FontAwesomeIcon icon={faAngleDoubleRight} /> Services</Link></li>
+              <li><Link to="/blog"><FontAwesomeIcon icon={faAngleDoubleRight} /> Blog</Link></li>
+              <li><Link to="/pricing"><FontAwesomeIcon icon={faAngleDoubleRight} /> Gallery</Link></li>
+              <li><Link to="/contact-us"><FontAwesomeIcon icon={faAngleDoubleRight} /> Contact Us</Link></li>
             </ul>
           </div>
 
-          <div className="col-md-3 tags">
+          <div className="col-md-3 contact">
             <h2>Contact Us</h2>
             <p>Bhusan dahal</p>
             <address>+977 9865434321</address>
