@@ -67,6 +67,11 @@ const MiniHeader = ({title}) => {
       >
         <div className="container">
           <div className="row nav-row">
+          {isFixed && (
+              <div className="mini-header-logo">
+                <img src='/assets/images/mini_eco_heart.png' alt="Mini Logo" />
+              </div>
+            )}
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about-us">About Us</Link></li>

@@ -66,7 +66,12 @@ const Header = () => {
         className={`header-nav ${isMenuOpen ? '' : 'd-none d-md-block'} ${isFixed ? 'scroll-to-fixed-fixed fixed' : ''}`}
         ref={menuRef}>
         <div className="container">
-          <div className="row nav-row">
+          <div className="row nav-row justify-content-center">
+          {isFixed && (
+              <div className="mini-header-logo">
+                <img src='/assets/images/mini_eco_heart.png' alt="Mini Logo" />
+              </div>
+            )}
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about-us">About Us</Link></li>
