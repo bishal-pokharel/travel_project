@@ -53,10 +53,10 @@ const Header = () => {
             </div>
             <div className="col-md-4 d-none d-md-block social-link">
               <ul>
-                <li><FontAwesomeIcon icon={faSquareFacebook} style={{color : "#fff"}} size='xl' /></li>
-                <li><FontAwesomeIcon icon={faTwitterSquare} style={{color : "#fff"}} size='xl' /></li>
-                <li><FontAwesomeIcon icon={faInstagramSquare} style={{color : "#fff"}} size='xl' /></li>
-                <li><FontAwesomeIcon icon={faLinkedin} style={{color : "#fff"}} size='xl' /></li>
+                <li><a href='https://www.facebook.com' target='_blank'><FontAwesomeIcon icon={faSquareFacebook} style={{color : "#fff"}} size='xl' /></a></li>
+                <li><a href='https://www.x.com' target='_blank'><FontAwesomeIcon icon={faTwitterSquare} style={{color : "#fff"}} size='xl' /></a></li>
+                <li><a href='https://www.instagram.com' target='_blank'><FontAwesomeIcon icon={faInstagramSquare} style={{color : "#fff"}} size='xl' /></a></li>
+                <li><a href='https://www.linkedin.com' target='_blank'><FontAwesomeIcon icon={faLinkedin} style={{color : "#fff"}} size='xl' /></a></li>
               </ul>
             </div>
           </div>

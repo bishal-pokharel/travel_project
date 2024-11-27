@@ -1,75 +1,85 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSquareFacebook, faTwitterSquare, faInstagramSquare, faLinkedin, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons';
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitter, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { Link } from 'react-router-dom';
-import { inArray } from 'jquery';
-// import team1 from './assets/images/team/team-1.jpg';
-// import team2 from '../assets/images/team/team-2.jpg';
-// import team3 from '../assets/images/team/team-3.jpg';
-// import team4 from '../assets/images/team/team-4.jpg';
 
 const Team = () => {
+  const [teamMembers, setTeamMembers] = useState([]);
 
-  const teamMember = [
-    {
-      'name': 'Bhusan Bhandari',
-      'degination': 'CEO',
-      'image': '/assets/images/team/team-1.jpg',
-      'socialMedia': [
-        'www.facebook.com',
-        'twitter',
-        'linkedin'
-      ]
-      },
-      {
-        'name': 'Bhusan Bhandari',
-        'degination': 'CEO',
-        'image': '/assets/images/team/team-1.jpg',
-        'socialMedia': [
-          'www.facebook.com',
-          'twitter',
-          'linkedin'
-        ]
-        },
-        {
-          'name': 'Bhusan Bhandari',
-          'degination': 'CEO',
-          'image': '/assets/images/team/team-1.jpg',
-          'socialMedia': [
-            'www.facebook.com',
-            'twitter',
-            'linkedin'
-          ]
+  // Fetch team data from the API
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        // Simulating an API call here, replace this with your actual API call
+        const response = [
+          {
+            'name': 'Bhusan Bhandari',
+            'designation': 'CEO',
+            'image': '/assets/images/team/team-1.jpg',
+            'socialMedia': [
+              'https://www.facebook.com',
+              'https://twitter.com',
+              'https://www.linkedin.com'
+            ]
+          },
+          {
+            'name': 'Sita Sharma',
+            'designation': 'Marketing Manager',
+            'image': '/assets/images/team/team-1.jpg',
+            'socialMedia': [
+              'https://www.facebook.com',
+              'https://twitter.com',
+              'https://www.linkedin.com'
+            ]
+          },
+          {
+            'name': 'Anil Kumar',
+            'designation': 'Product Lead',
+            'image': '/assets/images/team/team-1.jpg',
+            'socialMedia': [
+              'https://www.facebook.com',
+              'https://twitter.com',
+              'https://www.linkedin.com'
+            ]
           }
-  ]
+        ];
+
+        setTeamMembers(response);
+      } catch (error) {
+        console.error('Error fetching team data:', error);
+      }
+    };
+
+    fetchTeamData();
+  }, []);
+
   return (
     <div className="our-team">
       <div className="container">
         <div className="row session-title">
           <h2>Meet our team</h2>
-          <p>Meet our team who are passonate and have experience in trekking who make always safe for your journey! </p>
+          <p>Meet our passionate and experienced team who make your journey safe and memorable!</p>
         </div>
         <div className="row">
-            {
-            teamMember.map((item, index) => {
-              return(
-                <div key={index} className="col-md-4 col-sm-6">
-                <div className="card-1 team-member">
-                  <img src={item.image} alt="Team Member 1" />
-                  <p><b>{item.name}</b> {item.degination}</p>
-                  <ul className="row justify-content-center">
-                    <li><FontAwesomeIcon icon={faFacebook} /><Link to={`${item.socialMedia[0]}`}></Link></li>
-                    <li><FontAwesomeIcon icon={faTwitter} /></li>
-                    <li><FontAwesomeIcon icon={faLinkedin} /></li>
-                    {/* <li><i className="fab fa-google-plus-g"></i></li>
-                    <li><i className="fab fa-pinterest-p"></i></li> */}
-                  </ul>
-                </div>
+          {teamMembers.map((item, index) => (
+            <div key={index} className="col-md-4 col-sm-6">
+              <div className="card-1 team-member">
+                <img src={item.image} alt={`Team Member ${index + 1}`} />
+                <p><b>{item.name}</b> </p>
+                <p>{item.designation}</p>
+                <ul className="row justify-content-center">
+                  {item.socialMedia.map((link, i) => (
+                    <li key={i}>
+                      <FontAwesomeIcon 
+                        icon={i === 0 ? faFacebook : i === 1 ? faTwitter : faLinkedin} 
+                      />
+                      <Link to={link} target="_blank" rel="noopener noreferrer"></Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              )
-            })
-            }
-
+            </div>
+          ))}
         </div>
       </div>
     </div>

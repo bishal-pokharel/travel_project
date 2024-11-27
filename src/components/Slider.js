@@ -25,7 +25,7 @@ const Carousel = () => {
 
   const slides = [
     {
-      imgSrc: "assets/images/e.jpg",
+      imgSrc: "assets/images/slider1.jpg",
       title: `Want to Make Your <span class="highlight-text1">Trip Best?</span>`,
       description: "Choose us to make your travel adventure in Nepal",
     },
@@ -47,7 +47,7 @@ const Carousel = () => {
               <h5 dangerouslySetInnerHTML={{ __html: slide.title }}></h5>
               <p className='slider_discription'>{slide.description}</p>
               <div className="row vbh">
-                <div className="btn btn-primary animated bounceInUp">Book Trip</div>
+                <div className="btn booktrip-btn animated bounceInUp">Book Trip</div>
               </div>
             </div>
           </div>

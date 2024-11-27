@@ -169,7 +169,8 @@ body {
   padding: 40px;
   text-align: center;
   padding-top: 265px;
-  background-color: #eaeaea; }
+  background-color: #eaeaea;
+filter: brightness(0.5); }
   .page-nav ul {
     float: none;
     margin: auto; }
@@ -419,6 +420,9 @@ header {
   color: #ffffff; }
 .slider-detail .fvgb {
   color: #ffffff; }
+  .booktrip-btn{
+    background-color: var(--primary-color);
+  }
 
 /* =================== Destination Style Starts Here =================== */
 .destinations {
@@ -434,6 +438,9 @@ header {
       .destinations .dest-row .dest-col .dest-img {
         padding: 10px;
         border: 1px solid #CCC; }
+      .destinations .dest-row .dest-col .dest-img img{
+        height: 43vh;
+      }
       .destinations .dest-row .dest-col h3 {
         font-size: 1.6rem;
         margin-bottom: 20px;
@@ -458,6 +465,12 @@ header {
 
           .destination-details {
             padding: 20px;
+          }
+
+          .see_all_class{
+            margin: 20px 0px 0px 0px;
+            text-align: center;
+            padding-top: 20px;
           }
           
           .info-boxes {
@@ -821,6 +834,9 @@ header {
       font-weight: 500;
       font-size: .93rem;
       line-height: 25px; }
+    .blog-img img{
+      height: 43vh;
+    }
 
 /* ===================================== Footer Cover Style  ================================== */
 .footer-ablove {
@@ -919,7 +935,9 @@ footer .tags ul li {
   text-align: center; }
 
 .gallery-filter .btn {
-  background-color: #FFF; }
+  background-color: #FFF;
+  margin-right: 1em;
+ }
 
 .gallery {
   padding: 50px;

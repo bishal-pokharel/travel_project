@@ -89,12 +89,12 @@ const ContactUs = () => {
               <div className="serv" style={{ margin: '50px' }}>
                 <h2 style={{ marginTop: '10px' }}>Address</h2>
                 <p>
-                  Antonya Street, <br />
-                  23/H-2, Building<br />
-                  TA, AUS District<br />
+                  Kapan, Kathmandu <br />
+                  Bhrikuti Chowk<br />
+                  Bagmati, Nepal<br />
                   Phone: +91 9159669599<br />
-                  Email: support@smarteyeapps.com<br />
-                  Website: www.smarteyeapps.com
+                  Email: support@ecoheartadventure.com<br />
+                  Website: www.ecoheartadventure.com
                 </p>
               </div>
             </div>

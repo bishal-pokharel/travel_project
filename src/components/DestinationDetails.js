@@ -8,10 +8,10 @@ const DestinationDetails = () => {
   const navigate = useNavigate();
 
   const destinationData = {
-    switzerland: {
-      id: "switzerland",
-      title: "Switzerland",
-      subtitle: "Explore the beauty of the Alps",
+    abc: {
+      id: "abc",
+      title: "Aarnapurna Base Camp",
+      subtitle: "Offers stunning mountain views and serene trekking adventures.",
       overview: `
         Discover the breathtaking landscapes of Switzerland, home to majestic mountains, serene lakes, and charming villages. Perfect for adventure enthusiasts and nature lovers.
       `,

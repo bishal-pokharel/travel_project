@@ -35,8 +35,8 @@ const Home = () => {
           </div>
         </div>
       </section>
+      <Destinations flag='homepageflag' />
       <Team />
-      <Destinations />
       <Testimonials />
       <KeyFeatures />
       <Blog />
