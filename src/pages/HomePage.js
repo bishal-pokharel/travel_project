@@ -6,15 +6,21 @@ import Destinations from '../components/Destinations';
 import Testimonials from '../components/Testimonial';
 import KeyFeatures from '../components/KeyFeatures';
 import Blog from '../components/Blog';
-
+import AboutUs from './AboutUs';
+import HeaderKeyPoint from './headerKeyPoint';
+import HomeMiniContact from './HomeMiniContact'
 const Home = () => {
+
+  const flag = 'homepageflag';
 
   return (
     <div>
       <Header />
       <Slider />
+      <HeaderKeyPoint />
+      <AboutUs flag={flag} />
       {/* About Us Section */}
-      <section id="about" className="container-fluid about-us">
+      {/* <section id="about" className="container-fluid about-us">
         <div className="container">
           <div className="row">
             <div className="col-md-7 text">
@@ -34,9 +40,10 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
-      <Destinations flag='homepageflag' />
+      </section> */}
+      <Destinations flag={flag} />
       <Team />
+      <HomeMiniContact />
       <Testimonials />
       <KeyFeatures />
       <Blog />

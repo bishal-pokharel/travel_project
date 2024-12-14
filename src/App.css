@@ -132,7 +132,7 @@ body {
     font-size: 1.1rem;
     margin-top: 15px; }
   .session-title span {
-    float: right;
+    /* float: right; */
     font-style: italic; }
 
 .inner-title {
@@ -262,7 +262,9 @@ filter: brightness(0.5); }
   max-width: 1170px; }
   @media screen and (max-width: 575px) {
     .container {
-      padding: 10px 15px; } }
+      padding: 10px 15px; } 
+    
+    }
 
 /* =================== Header Style Starts Here =================== */
 header {
@@ -436,14 +438,34 @@ header {
     .destinations .dest-row .dest-col {
       text-align: center; }
       .destinations .dest-row .dest-col .dest-img {
-        padding: 10px;
-        border: 1px solid #CCC; }
+        padding: 0px;
+        border: 1px solid #CCC;
+        overflow: hidden;
+       }
+        .dest-img > h3{
+          position: absolute;
+          bottom: 0%;
+          width: 100%;
+          text-align: left;
+          color: var(--primary-color);
+          font-weight: bold;
+          background: rgba(0, 0, 0, 0.2);
+        }
       .destinations .dest-row .dest-col .dest-img img{
         height: 43vh;
+        width: 100%;
+        object-fit: cover;
+        scale: 1;
+        transition: scale 1s ease;
+      }
+      .destinations .dest-row .dest-col .dest-img img:hover {
+        scale: 1.2;
+        transition: scale 1s ease;
       }
       .destinations .dest-row .dest-col h3 {
         font-size: 1.6rem;
-        margin-bottom: 20px;
+        margin-bottom: 0px;
+        padding: 5px 0px;
         margin-top: 20px;
         font-weight: 600; }
       .destinations .dest-row .dest-col p {
@@ -453,7 +475,7 @@ header {
         box-shadow: none;
         font-weight: 600;
         border-radius: 5px;
-        border: 2px solid #14863d;
+        border: 0px solid #14863d;
         padding: 5px 20px; }
       .destinations .dest-row .dest-col:hover {
         box-shadow: 0 5px 16px 0 rgba(0, 0, 0, 0.15);
@@ -461,7 +483,7 @@ header {
         padding-bottom: 25px; }
         .destinations .dest-row .dest-col:hover .dest-img {
           border: none; }
-
+        
 
           .destination-details {
             padding: 20px;
@@ -671,7 +693,7 @@ header {
 /* =================== About US Starts Here =================== */
 .about-us {
   padding: 50px;
-  padding-top: 110px;
+  padding-top: 50px;
   background-color: #FFF; 
 }
 .highlight-text{
@@ -679,6 +701,15 @@ header {
 }
 .highlight-text1{
   color: var(--primary-color);
+}
+.aboutus_img{
+  position: absolute !important;
+  right: 0;
+}
+@media screen and (max-width: 767px) {
+  .aboutus_img{
+    position: relative !important;
+  }
 }
 /* .aboutus-img{
     background: url('./../public/assets/images/d.jpg');
@@ -700,6 +731,7 @@ header {
     line-height: 32px; }
   .about-us .image img {
     margin-top: 0px; }
+    
 
 /* =================== Testimonial Starts Here =================== */
 .customer-serv {
@@ -815,11 +847,12 @@ header {
       padding: 30px 10px; } }
   .blog .blog-row .blog-col {
     background-color: #fff;
-    padding: 15px;
+    padding: 0px;
+    border-radius: 20px 20px 0px 0px;
     box-shadow: 0 2px 3px 0 rgba(218, 218, 253, 0.35), 0 0px 3px 0 rgba(206, 206, 238, 0.35);
     margin-bottom: 30px; }
     .blog .blog-row .blog-col img {
-      margin-bottom: 20px;
+      /* margin-bottom: 20px; */
       width: 100%; }
     .blog .blog-row .blog-col span {
       color: #a09f9f;
@@ -828,14 +861,34 @@ header {
       margin-top: 15px;
       font-weight: 600;
       font-size: 1.2rem;
-      margin-bottom: 15px;
+      margin-bottom: 0px;
       line-height: 26px; }
     .blog .blog-row .blog-col p {
       font-weight: 500;
       font-size: .93rem;
       line-height: 25px; }
+    .blog-img{
+      overflow: hidden;
+    }
     .blog-img img{
-      height: 43vh;
+      height: 30vh;
+      object-fit: cover;
+      border-radius: 20px 20px 0px 0px;
+      scale: 1;
+      transition: scale 1s ease;
+    }
+    .blog-img img:hover{
+      scale: 1.2;
+      /* transform: scale(1.1); */
+      transition: scale 1s ease;
+      /* overflow: hidden; */
+    }
+    .blog-title{
+      position: absolute;
+      bottom: 0;
+      padding: 5px 0px;
+      background-color: rgba(0,0,0,0.2);
+      color: white;
     }
 
 /* ===================================== Footer Cover Style  ================================== */
@@ -991,6 +1044,58 @@ footer .tags ul li {
 .hidden{
   display: none;
 }
+
+/* Key Point CSS Start */
+.keypoint_container{
+   background-color: rgb(246 246 247);
+   padding: 0px 2em;
+   margin-top: -5px;
+}
+.keypoint_row{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2em;
+}
+.key_card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding: 2em 0em;
+}
+.key_card_text > h3{
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+.card_days_popup{
+  background-color: var(--secondary-color);
+  color: #FFF;
+  position: absolute;
+  top: 0%;
+  width: 20%;
+  padding: 3px;
+  left: 0%;
+}
+.keypointcontact_container{
+  background-color: var(--primary-color);
+  color: #FFF;
+}
+.keypointcontact_row{
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+  gap: 10em;
+}
+.keypoint-contact{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 2em;
+  margin: 3em 0em;
+}
+/* Key Point CSS Start */
 
 /* ===================================== Responsive Style CSS ==================================== */
 @media screen and (max-width: 991px) {

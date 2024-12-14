@@ -42,13 +42,13 @@ const Footer = () => {
 
           <div className="col-md-3 fotblog">
             <h2>From Latest Blog</h2>
-            {blogData.slice(0, 2).map((blog) => (
-              <>
-              <div className="blohjb">
+            {blogData.slice(0, 2).map((blog, index) => (
+              
+              <div key={index} className="blohjb">
                 <p>{blog.title}</p>
                 <span>{blog.date}</span>
               </div>
-            </>
+            
             ))}
           </div>
 

@@ -14,6 +14,12 @@ import BlogDetails from './pages/BlogDetails';
 import DestinationDetail from './pages/DestinationDetail';
 import Booking from './pages/Booking';
 import ScrollToTop from './components/ScrollToTop';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchDestinations } from './redux/destinationApiSlice';
+
+const queryClient = new QueryClient();
 
 // import './assets/css/fontawsom-all.min.css';
 // import './assets/css/all.min.css'; // Optional
@@ -27,9 +33,16 @@ import ScrollToTop from './components/ScrollToTop';
 // import './assets/js/script.js';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchDestinations());
+  }, [dispatch]);
+
   return (
     <Router>
       <ScrollToTop />
+      <QueryClientProvider client={queryClient} >
       <div className="App">
         <Routes>
           <Route path="/" exact element={<Home />} />
@@ -44,6 +57,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
+      </QueryClientProvider>
     </Router>
   );
 }

@@ -2,97 +2,50 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { faWalking, faStopwatch, faDirections } from '@fortawesome/free-solid-svg-icons';
+import { useQuery } from 'react-query';
+import { fetcher } from '../api';
+import { API_URLS, BASE_IMAGE_URL } from '../api/url';
 
 const DestinationDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const destinationData = {
-    abc: {
-      id: "abc",
-      title: "Aarnapurna Base Camp",
-      subtitle: "Offers stunning mountain views and serene trekking adventures.",
-      overview: `
-        Discover the breathtaking landscapes of Switzerland, home to majestic mountains, serene lakes, and charming villages. Perfect for adventure enthusiasts and nature lovers.
-      `,
-      itinerary: [
-        "Day 1: Arrival in Zurich",
-        "Day 2: Visit the Rhine Falls",
-        "Day 3: Explore Interlaken",
-        "Day 4: Excursion to Jungfraujoch",
-      ],
-      included: ["Accommodation", "Meals", "Guided tours", "Transportation"],
-      faq: ["What is the best time to visit Switzerland?", "Are the tours family-friendly?"],
-      reviews: [
-        { name: "Alice", comment: "An unforgettable experience!", rating: 5 },
-        { name: "Bob", comment: "Absolutely loved it.", rating: 4 },
-      ],
-      duration: 7,
-      pricePerPerson: 5165,
-      distance: "10 - 20 km per day",
-      ascent: "200 - 400 m per day",
-      highlights: ["Experience the Swiss Alps", "Taste authentic Swiss chocolates", "Enjoy panoramic train rides"],
-      tags: ["Everest", "Culture"],
-      price: 5165,
-      discounts: {
-        1: 5690,
-        2: 5165,
-        "3+": 4383,
-      },
-    },
-    maldives: {
-        id: "maldives",
-        title: "Maldives",
-        subtitle: "Explore the beauty of the Alps",
-        overview: `
-          Discover the breathtaking landscapes of Switzerland, home to majestic mountains, serene lakes, and charming villages. Perfect for adventure enthusiasts and nature lovers.
-        `,
-        itinerary: [
-          "Day 1: Arrival in Zurich",
-          "Day 2: Visit the Rhine Falls",
-          "Day 3: Explore Interlaken",
-          "Day 4: Excursion to Jungfraujoch",
-        ],
-        included: ["Accommodation", "Meals", "Guided tours", "Transportation"],
-        faq: ["What is the best time to visit Switzerland?", "Are the tours family-friendly?"],
-        reviews: [
-          { name: "Alice", comment: "An unforgettable experience!", rating: 5 },
-          { name: "Bob", comment: "Absolutely loved it.", rating: 4 },
-        ],
-        duration: 7,
-        pricePerPerson: 5165,
-        distance: "10 - 20 km per day",
-        ascent: "200 - 400 m per day",
-        highlights: ["Experience the Swiss Alps", "Taste authentic Swiss chocolates", "Enjoy panoramic train rides"],
-        tags: ["Everest", "Culture"],
-        price: 5165,
-        discounts: {
-          1: 5690,
-          2: 5165,
-          "3+": 4383,
-        },
-      },
-  };
+  const { data, isLoading, isError } = useQuery(
+    ['destinationDetails', id],
+    () => fetcher(`${API_URLS.DESTINATION_DETAILS}/${id}/`), // API call with the `id`
+    { enabled: !!id } // Ensure the query runs only when `id` is available
+  );
 
-  const destination = destinationData[id];
-
-  const [activeTab, setActiveTab] = useState("overview");
+  const destination = data;
+  const [activeTab, setActiveTab] = useState("Overview");
   const [startDate, setStartDate] = useState("");
-  const [persons, setPersons] = useState(2);
+  const [persons, setPersons] = useState(1);
   const [showGroupDiscount, setShowGroupDiscount] = useState(false);
+
+  // console.log(id)
+  
+
+  if (isLoading) return <h2>Loading...</h2>;
+  if (isError || !data) return <h2>Error loading destination details.</h2>;
 
   if (!destination) {
     return <h2>Destination not found</h2>;
   }
-
+  
   const calculateBookingDetails = () => {
     if (!startDate) return null;
 
     const start = new Date(startDate);
     const end = new Date(start);
-    end.setDate(start.getDate() + destination.duration);
+    end.setDate(start.getDate() + parseInt(destination.duration, 10));
 
-    const costPerPerson = persons >= 3 ? destination.discounts["3+"] : destination.discounts[persons] || destination.discounts[1];
+    const defaultPrice = parseFloat(destination.price);
+    const costPerPerson =
+    destination.discounts && persons >= 3
+      ? destination.discounts["3+"]
+      : destination.discounts?.[persons] || defaultPrice;
+
+    // const costPerPerson = persons >= 3 ? destination.discounts["3+"] : destination.discounts[persons] || destination.discounts[1];
     const totalCost = costPerPerson * persons;
     const payNow = totalCost * 0.25; // 25% upfront payment
 
@@ -114,6 +67,7 @@ const DestinationDetails = () => {
   
     navigate('/booking', {
       state: {
+        id: id,
         title: destination.title,
         startDate: bookingDetails.startDate,
         endDate: bookingDetails.endDate,
@@ -122,6 +76,37 @@ const DestinationDetails = () => {
         deposit: bookingDetails.payNow,
       },
     });
+  };
+
+  const renderTabBody = (body) => {
+    if (Array.isArray(body)) {
+      // If the body is an array, map over it
+      return (
+        <ul>
+          {body.map((item, idx) => {
+            if (typeof item === "object" && item !== null) {
+              return (
+                <li key={idx}
+                dangerouslySetInnerHTML={{ __html: item.value }}
+                />
+              );
+            }
+            return <li key={idx}>{item}</li>;
+          })}
+        </ul>
+      );
+    } else if (typeof body === "string") {
+      // If the body is a string, split into paragraphs
+      return body.split("\n").map((paragraph, idx) => <p key={idx}>{paragraph}</p>);
+    } else if (typeof body === "object" && body !== null) {
+      // Render object keys and values if the body is a single object
+      return (
+        <div>
+          <strong>{body.type}:</strong> {body.value} (ID: {body.id})
+        </div>
+      );
+    }
+    return null; // Return nothing if the body format is not supported
   };
 
   return (
@@ -139,59 +124,39 @@ const DestinationDetails = () => {
             </div>
             <div className="info-box">
                 <FontAwesomeIcon icon={faStopwatch} />
-              {/* <i className="icon-trails"></i> */}
               <p>Trails: {destination.distance}</p>
             </div>
             <div className="info-box">
                 <FontAwesomeIcon icon={faDirections} />
-              {/* <i className="icon-ascent"></i> */}
               <p>Ascent per day: {destination.ascent}</p>
             </div>
           </div>
           <div className="tags mb-4">
-            {destination.tags.map((tag, index) => (
+            {destination?.tags?.map((tag, index) => (
+              
               <span key={index} className="tag">{tag}</span>
             ))}
           </div>
           <div className="tabs">
             <ul className="tab-list">
-              <li
-                className={`tab-item ${activeTab === "overview" ? "active" : ""}`}
-                onClick={() => setActiveTab("overview")}
-              >
-                Overview
-              </li>
-              <li
-                className={`tab-item ${activeTab === "faq" ? "active" : ""}`}
-                onClick={() => setActiveTab("faq")}
-              >
-                FAQs
-              </li>
-              <li
-                className={`tab-item ${activeTab === "reviews" ? "active" : ""}`}
-                onClick={() => setActiveTab("reviews")}
-              >
-                Reviews
-              </li>
+              {destination?.tabs.map((tab, index) => (
+                <li
+                  key={index}
+                  className={`tab-item ${activeTab === tab.title ? "active" : ""}`}
+                  onClick={() => setActiveTab(tab.title)}
+                >
+                  {tab.title}
+                </li>
+        ))}
             </ul>
             <div className="tab-content">
-              {activeTab === "overview" && <p>{destination.overview}</p>}
-              {activeTab === "faq" && (
-                <ul>
-                  {destination.faq.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              )}
-              {activeTab === "reviews" && (
-                <ul>
-                  {destination.reviews.map((review, index) => (
-                    <li key={index}>
-                      <strong>{review.name}:</strong> {review.comment} ({review.rating} stars)
-                    </li>
-                  ))}
-                </ul>
-              )}
+            {destination?.tabs.map((tab, index) => (
+              activeTab === tab.title && (
+                <div key={index}>
+                  {renderTabBody(tab.body)}
+                </div>
+              )
+            ))}
             </div>
           </div>
         </div>
@@ -201,7 +166,7 @@ const DestinationDetails = () => {
           <div className="booking-card">
             <p>Free cancellation up to eight weeks in advance!</p>
             <h3>
-              Starting at <span className="price">${destination.pricePerPerson}</span> per person
+              Starting at <span className="price">${destination.price}</span> per person
             </h3>
             <div className="booking-options">
               <label>
@@ -219,20 +184,25 @@ const DestinationDetails = () => {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
+                min={new Date().toISOString().split("T")[0]}
                 />
               </label>
               {showGroupDiscount && (
-            <div className="group-discount mt-4">
-              <h4>Group Discount</h4>
-              <ul>
-                {Object.entries(destination.discounts).map(([key, value]) => (
-                  <li key={key}>
-                    {key === "3+" ? "3+ persons" : `${key} person${key > 1 ? "s" : ""}`}: ${value}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            )}
+                <div className="group-discount mt-4">
+                  <h4>Group Discount</h4>
+                  {destination.discounts ? (
+                    <ul>
+                      {Object.entries(destination.discounts).map(([key, value]) => (
+                        <li key={key}>
+                          {key === "3+" ? "3+ persons" : `${key} person${key > 1 ? "s" : ""}`}: ${value}
+                        </li>
+                      ))}
+                    </ul>
+                    ) : (
+                      <p>No group discounts available currently.</p>
+                    )}
+                </div>
+              )}
 
             {bookingDetails && (
                 <div className="booking-summary mt-4">

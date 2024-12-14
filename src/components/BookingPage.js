@@ -1,19 +1,77 @@
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCcStripe } from '@fortawesome/free-brands-svg-icons';
+import { faArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons';
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { faCcVisa } from '@fortawesome/free-brands-svg-icons/faCcVisa';
+import { faCcPaypal } from '@fortawesome/free-brands-svg-icons/faCcPaypal';
+import { useMutation } from 'react-query';
+import { poster } from '../api';
+import { API_URLS, BASE_IMAGE_URL } from '../api/url';
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const BookingPage = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [showDetails, setShowDetails] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   if (!state) {
     return <h2>No booking details provided. Please start the booking process again.</h2>;
   }
 
-  const { title, startDate, endDate, persons, totalCost, deposit } = state;
+  const {id, title, startDate, endDate, persons, totalCost, deposit } = state;
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { mutate } = useMutation(
+    async (formData) => poster(API_URLS.BOOK_DESTINATION , formData),
+    {
+      onMutate: () => {
+        setIsLoading(true); // Set loading to true when mutation starts
+        setSuccessMessage(null); // Clear success message before sending
+        setErrorMessage(null); // Clear any previous error message
+      },
+      onSuccess: (data) => {
+        setIsLoading(false); // Stop loading once the request is successful
+        setSuccessMessage('Your booking was sent successfully. You will receive a confirmation email. Thank you!');
+      },
+      onError: (error) => {
+        setIsLoading(false); // Stop loading if there's an error
+        setErrorMessage('There was an error while processing your booking. Please try again later.');
+      },
+    }
+  );
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      destination: id,
+      title,
+      start_date: startDate,
+      end_date: endDate,
+      no_of_persons: persons,
+      price : totalCost,
+      deposit,
+      first_name: e.target.firstName.value,
+      last_name: e.target.lastName.value,
+      email_address: e.target.email.value,
+      country: e.target.country.value,
+      city: e.target.city.value,
+      postalCode: e.target.postalCode.value,
+      houseNumber: e.target.houseNumber.value,
+      phone_number: `+`+phone,
+      // paymentMethod: e.target.paymentMethod.value,
+      // paymentOption: e.target.paymentOption.value,
+    };
+
+    // console.log(formData)
+    mutate(formData); // Call mutate to send the data to the API
+  };
   // Details data object
   const detailsData = {
     included: [
@@ -54,7 +112,7 @@ const BookingPage = () => {
             <FontAwesomeIcon icon={faArrowLeft} /> 
             <span> Back</span>
           </button>
-          <h1>Book your adventure now</h1>
+          <h1>Book your Adventure Now</h1>
           <h2>{title}</h2>
           <p>
             Start date: <strong>{startDate}</strong>
@@ -95,55 +153,53 @@ const BookingPage = () => {
             </div>
           )}
 
-          <form className="booking-form mt-4">
+          <form className="booking-form mt-4" onSubmit={handleFormSubmit}>
             <h3>Personal Details</h3>
             <label>
               Your first name
-              <input type="text" required />
+              <input type="text" name='firstName' required />
             </label>
             <label>
               Your last name
-              <input type="text" required />
+              <input type="text" name='lastName' required />
             </label>
             <label>
               Your e-mail address
-              <input type="email" required />
+              <input type="email" name='email' required />
             </label>
             <div className='d-flex justify-content-between flex-wrap'>
             <label className='w-50 pr-2'>
               In which country do you live?
-              <input type="text" required />
+              <input type="text" name='country' required />
             </label>
-            <label className='w-50'>
-              Street
-              <input type="text" required />
+            <label className='w-50 pr-2'>
+              City
+              <input type="text" name='city' required />
             </label>
             </div>
             <div className='d-flex justify-content-between flex-wrap'>
             <label className='pr-2 w-50'>
-              House number
-              <input type="text" required />
+              Zip Code / Postal Code
+              <input type="text" name='postalCode' required />
             </label>
             <label className='w-50'>
-              House number addition
-              <input type="text" />
+              House number
+              <input type="text" name='houseNumber' />
             </label>
             </div>
             <div className='d-flex justify-content-between flex-wrap'>
-            <label className='w-50 pr-2'>
-              City
-              <input type="text" required />
-            </label>
-            <label className='w-50'>
-              Zip Code / Postal Code
-              <input type="text" required />
-            </label>
-            </div>
-            <label>
+            <PhoneInput
+              // country={"np"}
+              value={phone}
+              onChange={setPhone}
+              // onlyCountries={["np"]} // Limit to Nepal only (Optional)
+              inputStyle={{ width: "100%", height: "40px" }}
+            />
+            {/* <label>
               Your phone number
-              <input type="text" required />
-            </label>
-
+              <input type="text" name='phoneNumber' required />
+            </label> */}
+            </div>
             <div className="mt-3">
               <label>
                 <input type="checkbox" required /> I have read and agreed to the Terms and
@@ -165,7 +221,6 @@ const BookingPage = () => {
               <input type="radio" name="payment" value="full" required /> I will pay the full amount
               now - ${totalCost}
             </label>
-            <br />
             <label>
               <input type="radio" name="payment" value="deposit" /> I prefer to make a deposit - $
               {deposit}
@@ -173,16 +228,23 @@ const BookingPage = () => {
 
             <h3 className="mt-4">Payment Method</h3>
             <label>
-              <input type="radio" name="paymentMethod" value="card" required /> Card
+              <input type="radio" name="paymentMethod" value="card" disabled /> Card
             </label>
-            <br />
             <label>
-              <input type="radio" name="paymentMethod" value="paypal" /> PayPal
+              <input type="radio" name="paymentMethod" value="paypal" disabled /> PayPal
+            </label>
+            <label>
+              <input type="radio" name="paymentMethod" value="paypal" required /> Currently, We accept Cash, we will send you a bank details in a Email.
             </label>
 
-            <button type="submit" className="btn btn-success mt-4">
-              Book your adventure
+            <button type="submit" className="btn btn-success mt-4" disabled={isLoading}>
+              {isLoading ? 'Processing...' : 'Book your adventure'}
             </button>
+
+
+            {/* Success or Error Message */}
+          {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           </form>
         </div>
 
@@ -191,18 +253,21 @@ const BookingPage = () => {
           {/* Why Bookatrekking.com? Card */}
           <div className="card mb-4">
             <div className="card-body">
-              <h3>Why Bookatrekking.com?</h3>
+              <h3>Why EchoHeartAdventure.com?</h3>
               <ul>
-                <li>Expert support</li>
-                <li>No additional fees</li>
-                <li>Pay only a deposit now</li>
+                <li><FontAwesomeIcon icon={faCheck} color='green' />  Expert support</li>
+                <li><FontAwesomeIcon icon={faCheck} color='green' /> No additional fees</li>
+                <li><FontAwesomeIcon icon={faCheck} color='green' /> Pay only a deposit now</li>
               </ul>
               <h4>Payment Methods</h4>
-              <div className="d-flex gap-2">
-                <img src="/path/to/visa-logo.png" alt="Visa" width="50" />
+              <div className="d-flex justify-content-start">
+              <span className='pr-2'><FontAwesomeIcon color='#009347' icon={faCcPaypal} size='2xl' /></span>
+              <span className='pr-2'><FontAwesomeIcon color='#009347' icon={faCcVisa} size='2xl' /></span>
+              <span className='pr-2'><FontAwesomeIcon color='#009347' icon={faCcStripe} size='2xl' /></span>
+                {/* <img src="/path/to/visa-logo.png" alt="Visa" width="50" />
                 <img src="/path/to/mastercard-logo.png" alt="MasterCard" width="50" />
                 <img src="/path/to/paypal-logo.png" alt="PayPal" width="50" />
-                <img src="/path/to/amex-logo.png" alt="American Express" width="50" />
+                <img src="/path/to/amex-logo.png" alt="American Express" width="50" /> */}
               </div>
             </div>
           </div>

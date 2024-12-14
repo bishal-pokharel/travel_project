@@ -8,7 +8,7 @@ const KeyFeatures = () => {
     <div id="features" className="features container-fluid">
       <div className="container">
         <div className="session-title">
-          <h2>Key Features of this Phone</h2>
+          <h2>KEY FEATURES OF <span className='highlight-text'>ECHO HEART ADVENTURE</span></h2>
         </div>
         <div className="ker-featur-row row">
           <div data-aos="fade-right" data-aos-duration="1500" className="col-md-4 featurecol feature-left">

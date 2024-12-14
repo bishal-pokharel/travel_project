@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick'; 
 import 'slick-carousel/slick/slick.css'; 
 import 'slick-carousel/slick/slick-theme.css';
-// import 'animate.css'; // Ensure animate.css is imported
+// import { useQuery } from 'react-query';
+// import { fetcher } from '../api';
+// import { API_URLS, BASE_IMAGE_URL } from '../api/url';
+import { useSelector } from 'react-redux';
 
 const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [shouldAnimate, setShouldAnimate] = useState(false); // State to manage animation
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -23,6 +27,24 @@ const Carousel = () => {
     },
   };
 
+  const {data, isLoading, error} = useSelector((state) => state.destinations);
+  console.log(data)
+
+  useEffect(() => {
+    if(data){
+      console.log(data);
+    }
+  },[data])
+
+  // Handle loading and error states
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if(error){
+    console.error("Error fetching data:", error);
+    return <div>Error: {error.message || error}</div>;
+  }
+
   const slides = [
     {
       imgSrc: "assets/images/slider1.jpg",
@@ -34,24 +56,35 @@ const Carousel = () => {
       title: `Exicting offer to visit <span class="highlight-text1">Mustang</span>`,
       description: "We always dedicated to our customer for best services.",
     },
+    {
+      imgSrc: "assets/images/c.jpg",
+      title: `Exicting offer to visit <span class="highlight-text1">Mustang</span>`,
+      description: "We always dedicated to our customer for best services.",
+    },
   ];
 
   return (
     <div className="slider-detail">
       <Slider {...settings}>
-        {slides.map((slide, index) => (
+        {data?.results?.slice(0,3).map((slide, index) => {
+          const staticImage = slides[index % slides.length].imgSrc;
+          const titleParts = slide.title.split(" ");
+          const highlightedTitle = titleParts.slice(0, -1).join(" ") + 
+          ` <span class="highlight-text1">${titleParts.slice(-1)}</span>`;
+          return(
           <div key={index} className="slide carousel-item">
             <div className='front-layer'></div>
-            <img className="d-block w-100 slider-image" src={slide.imgSrc} alt={`Slide ${index + 1}`} />
+            <img className="d-block w-100 slider-image" src={staticImage} alt={`Slide ${index + 1}`} />
             <div className={`carousel-caption fvgb d-none d-md-block ${activeIndex === index && shouldAnimate ? 'animated bounceInDown' : ''}`}>
-              <h5 dangerouslySetInnerHTML={{ __html: slide.title }}></h5>
-              <p className='slider_discription'>{slide.description}</p>
+              <h5 dangerouslySetInnerHTML={{ __html: highlightedTitle }}></h5>
+              <p className='slider_discription'>{slide.subtitle}</p>
               <div className="row vbh">
-                <div className="btn booktrip-btn animated bounceInUp">Book Trip</div>
+                <div className="btn booktrip-btn animated bounceInUp"><Link className='text-white' to={`/destinations/${slide.id}`}>Book Trip</Link></div>
               </div>
             </div>
           </div>
-        ))}
+          )
+        })}
       </Slider>
     </div>
   );
