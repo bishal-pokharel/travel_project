@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
 import Destination from './pages/Destination';
@@ -32,6 +32,14 @@ const queryClient = new QueryClient();
 // import './assets/plugins/slider/js/owl.carousel.min.js';
 // import './assets/js/script.js';
 
+const RedirectToAdmin = () => {
+  useEffect(() => {
+    window.location.href = "https://apiecoheartadv.xyz.elyakadventures.com/admin";
+  }, []);
+
+  return null;
+};
+
 function App() {
   const dispatch = useDispatch();
 
@@ -54,6 +62,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path='/destinations/:id' element={<DestinationDetail />} />
           <Route path='/booking' element={<Booking />} />
+          <Route path="/admin" element={<RedirectToAdmin />} />
         </Routes>
         <Footer />
       </div>

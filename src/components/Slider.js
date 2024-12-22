@@ -28,7 +28,7 @@ const Carousel = () => {
   };
 
   const {data, isLoading, error} = useSelector((state) => state.destinations);
-  console.log(data)
+  // console.log(data)
 
   useEffect(() => {
     if(data){

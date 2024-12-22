@@ -253,7 +253,8 @@ filter: brightness(0.5); }
 
 .form-control {
   background-color: #F8F8F8;
-  margin-bottom: 20px; }
+  /* margin-bottom: 20px;  */
+}
   .form-control:focus {
     background-color: #FFF;
     border-color: #CCC; }
@@ -1094,6 +1095,16 @@ footer .tags ul li {
   flex-direction: column;
   gap: 2em;
   margin: 3em 0em;
+}
+@media screen and (max-width: 767px) {
+  .keypoint_row{
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  .keypointcontact_row{
+    flex-direction: column;
+    gap: 2em;
+  }
 }
 /* Key Point CSS Start */
 

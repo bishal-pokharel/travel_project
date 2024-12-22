@@ -15,7 +15,7 @@ const Blog = () => {
 
   useEffect(() => {
     if (data) {
-      // console.log('Fetched data:', data);
+      console.log('Fetched data:', data);
       const blogArray = Array.isArray(data) ? data : [data]; // Wrap the object in an array if it's a single blog post
       dispatch(setBlogData(blogArray));
     }
